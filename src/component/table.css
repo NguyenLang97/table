@@ -1,0 +1,127 @@
+.month-select,
+.year-select {
+  width: 1 0%;
+}
+.month-select {
+  margin-right: 16px;
+}
+
+.input-search {
+  width: 20% !important;
+}
+
+.header {
+  justify-content: space-between;
+  margin-top: 16px;
+}
+.content {
+  height: 200px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.table-right,
+.table-left {
+  height: 200px;
+}
+.table-right {
+  border-left: 0px solid transparent !important;
+}
+.table-left thead tr {
+  z-index: 2;
+  background-color: white;
+}
+th {
+  z-index: 2;
+  background-color: white;
+}
+
+.table-header {
+  top: 0px;
+  background-color: white;
+  border-bottom: none;
+}
+
+table tr th {
+  border: 0;
+  border: 1px solid #dee2e6;
+  border-top: transparent !important;
+}
+
+.table-scroll th::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid #dee2e6;
+  border-top: 1px solid #dee2e6;
+  display: block;
+  top: -1px;
+  z-index: 2;
+}
+
+.table-left .table-body {
+  position: sticky;
+  right: 0;
+}
+
+*::-webkit-scrollbar-track {
+  background: #eeeeee;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd;
+  border-radius: 4px;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+/* table {
+  width: 100%;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+table thead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: -1px;
+  background-color: #edecec;
+}
+th:after,
+th:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+} */
+/* .test th:before {
+  top: 0;
+  border-top: 1px solid #dee2e6;
+}
+.test:after {
+  bottom: 0;
+  border-bottom: 1px solid #dee2e6;
+} */
+
+.table-right th[data-content='1'] {
+  border-right: 0 !important;
+  border-width: 0;
+}
+
+/* th:before {
+  top: 0;
+  border-top: 3px solid dee2e6;
+}
+th:after {
+  bottom: 0;
+  border-bottom: 3px solid dee2e6;
+} */
