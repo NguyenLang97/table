@@ -161,18 +161,14 @@ function Table() {
       event.target.scrollLeft ===
       event.target.scrollWidth - event.target.clientWidth;
     if (isAtBottom) {
-      console.log('Đã cuộn đến đáy.');
       setScrollIsAtBottom(true);
     } else {
       setScrollIsAtBottom(false);
-      console.log('Chưa cuộn đến đáy.');
     }
     if (isAtRight) {
       setScrollIsAtRight(true);
-      console.log('Đã cuộn đến phải.');
     } else {
       setScrollIsAtRight(false);
-      console.log('Chưa cuộn đến phải.');
     }
     setScrollPosition(event.target.scrollTop);
   };

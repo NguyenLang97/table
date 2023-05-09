@@ -129,6 +129,7 @@ th.table-cell {
 .content-right {
   overflow: overlay;
   overflow-x: overlay !important;
+  overflow-y: overlay !important;
 }
 
 .table {
