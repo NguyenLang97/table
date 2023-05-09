@@ -120,3 +120,25 @@ th.table-cell {
 .content .form-select {
   padding: 3px 28px 3px 8px !important;
 }
+
+.content {
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.content-right {
+  overflow: overlay;
+  overflow-x: overlay !important;
+}
+
+.table {
+  margin-bottom: 0 !important;
+}
+
+.border-right-none {
+  border-right-width: 0;
+}
+
+.border-bottom-none {
+  border-bottom-width: 0;
+}

@@ -151,8 +151,29 @@ function Table() {
   };
 
   const [scrollPosition, setScrollPosition] = useState(0);
-
+  const [scrollIsAtBottom, setScrollIsAtBottom] = useState(false);
+  const [scrollIsAtRight, setScrollIsAtRight] = useState(false);
   const handleScroll = (event) => {
+    const isAtBottom =
+      event.target.scrollHeight - event.target.scrollTop ===
+      event.target.clientHeight;
+    const isAtRight =
+      event.target.scrollLeft ===
+      event.target.scrollWidth - event.target.clientWidth;
+    if (isAtBottom) {
+      console.log('Đã cuộn đến đáy.');
+      setScrollIsAtBottom(true);
+    } else {
+      setScrollIsAtBottom(false);
+      console.log('Chưa cuộn đến đáy.');
+    }
+    if (isAtRight) {
+      setScrollIsAtRight(true);
+      console.log('Đã cuộn đến phải.');
+    } else {
+      setScrollIsAtRight(false);
+      console.log('Chưa cuộn đến phải.');
+    }
     setScrollPosition(event.target.scrollTop);
   };
 
@@ -255,7 +276,11 @@ function Table() {
           </div>
         </div>
       </div>
-      <div className='content d-flex'>
+      <div
+        className={`${scrollIsAtBottom ? 'border-bottom-none' : ''} ${
+          scrollIsAtRight ? 'border-right-none' : ''
+        } content d-flex`}
+      >
         <div className='content-left'>
           <table
             id='table-left'
@@ -391,7 +416,10 @@ function Table() {
             </tbody>
           </table>
         </div>
-        <div className='content-right wrapper table-responsive' onScroll={handleScroll}>
+        <div
+          className='content-right wrapper table-responsive'
+          onScroll={handleScroll}
+        >
           <table
             className={`table table-right table-bordered ${
               scrollPosition > 0 ? 'table-scroll' : ''
