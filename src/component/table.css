@@ -15,14 +15,19 @@
   margin-top: 16px;
 }
 .content {
-  height: 200px;
+  height: 400px;
   overflow: hidden;
   margin-top: 16px;
 }
 
+.content-left,
+.content-right {
+  width: 50%;
+}
+
 .table-right,
 .table-left {
-  height: 200px;
+  width: 50%;
 }
 .table-right {
   border-left: 0px solid transparent !important;
@@ -103,10 +108,14 @@ th.table-cell {
 }
 
 .table-cell--title {
-  min-width: 300px;
+  /* min-width: 300px; */
 }
 
 .table-cell--status,
 .table-cell--priority {
   width: auto !important;
+}
+
+.content .form-select {
+  padding: 0.2rem 1.8rem 0.2rem 0.5rem !important;
 }

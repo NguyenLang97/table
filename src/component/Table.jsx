@@ -38,7 +38,7 @@ function Table() {
           Function: 'API',
           Issue: '',
           Status: 'Code base done',
-          Priority: 'Meidum'
+          Priority: 'Hard'
         },
         {
           id: '2a',
@@ -46,7 +46,7 @@ function Table() {
           Function: 'API',
           Issue: '',
           Status: 'Code base done',
-          Priority: 'Meidum'
+          Priority: 'Medium'
         },
         {
           id: '3a',
@@ -55,7 +55,7 @@ function Table() {
           Function: 'API',
           Issue: '',
           Status: 'Code base done',
-          Priority: 'Meidum'
+          Priority: 'Medium'
         }
       ]
     },
@@ -169,7 +169,7 @@ function Table() {
 
   const tableCellPriority = [
     {
-      Priority: 'Meidum'
+      Priority: 'Medium'
     },
     {
       Priority: 'Hard'
@@ -256,7 +256,7 @@ function Table() {
         </div>
       </div>
       <div className='content d-flex'>
-        <div>
+        <div className='content-left'>
           <table
             id='table-left'
             className={`table table-left table-bordered position-relative ${
@@ -391,7 +391,7 @@ function Table() {
             </tbody>
           </table>
         </div>
-        <div className='wrapper table-responsive' onScroll={handleScroll}>
+        <div className='content-right wrapper table-responsive' onScroll={handleScroll}>
           <table
             className={`table table-right table-bordered ${
               scrollPosition > 0 ? 'table-scroll' : ''
