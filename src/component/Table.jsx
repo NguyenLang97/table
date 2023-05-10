@@ -537,6 +537,28 @@ function Table() {
                         })}
                       </select>
                     </div>
+                    <div class='col-6 mb-3'>
+                      <label for='message-text' class='col-form-label'>
+                        Assign:
+                      </label>
+                      <select
+                        className='new-task--status form-select'
+                        aria-label='Default select example'
+                        // onChange={(e) =>
+                        //   handleChangeTable(
+                        //     'Status',
+                        //     item.id,
+                        //     itemContent.id,
+                        //     e
+                        //   )
+                        // }
+                        // value={itemContent.Status}
+                      >
+                        <option value='1'>NamPink</option>
+                        <option value='2'>Tungdv</option>
+                        <option value='3'>Lang</option>
+                      </select>
+                    </div>
                   </form>
                 </div>
                 <div class='modal-footer'>
