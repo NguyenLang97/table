@@ -65,7 +65,7 @@ table tr th {
   display: block;
   top: -1.5px;
   z-index: 2;
-  height: 38px;
+  height: 58px;
 }
 
 .table-left .table-body {
@@ -76,7 +76,7 @@ table tr th {
 *::-webkit-scrollbar-track {
   background: #eeeeee;
   border-radius: 4px;
-  margin-top: 37px;
+  margin-top: 58px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -104,7 +104,7 @@ table tr th {
 }
 
 th.table-cell {
-  height: 20px;
+  height: 58px;
   line-height: 20px;
 }
 
@@ -142,4 +142,10 @@ th.table-cell {
 
 .border-bottom-none {
   border-bottom-width: 0;
+}
+
+.holiday,
+.table-body--holiday {
+  color: rgb(249, 73, 73);
+  background-color: rgb(249, 73, 73, 0.08) !important;
 }

@@ -27,6 +27,39 @@ function Table() {
     });
   }, 0);
 
+  const date = new Date();
+
+  const [holidayIndexes, setHolidayIndexes] = useState([]);
+  const [month, setMonth] = useState(date.getMonth() + 1);
+  const [year, setYear] = useState(date.getFullYear());
+  const [searchValue, setSearchValue] = useState('');
+  const cells = [];
+  const fakeData = [];
+  useEffect(() => {
+    const tableThead = document.querySelectorAll('.table-right thead th');
+    const tableTbody = document.querySelectorAll('.table-right tbody tr');
+    const tableTbodyHoliday = document.querySelectorAll(
+      '.table-right tbody tr td.table-body--holiday'
+    );
+    tableTbodyHoliday.forEach((tableTbodyHoliday) => {
+      tableTbodyHoliday.classList.remove('table-body--holiday');
+    });
+
+    let holidayIndexes = [];
+
+    for (let i = 0; i < tableThead.length; i++) {
+      if (tableThead[i].classList.contains('holiday')) {
+        holidayIndexes.push(i);
+        setHolidayIndexes([...holidayIndexes, i]);
+      }
+    }
+
+    holidayIndexes.forEach((holiday, index) => {
+      tableTbody.forEach((item) => {
+        item.querySelectorAll('td')[holiday].classList = 'table-body--holiday';
+      });
+    });
+  }, [month]);
   const dataFake = [
     {
       id: 1,
@@ -90,31 +123,47 @@ function Table() {
       ]
     }
   ];
-  const date = new Date();
 
   function getDaysInMonth(year, month) {
     return new Date(year, month, 0).getDate();
   }
-  const [month, setMonth] = useState(date.getMonth() + 1);
-  const [year, setYear] = useState(date.getFullYear());
-  const [searchValue, setSearchValue] = useState('');
-  const cells = [];
-  const fakeData = [];
 
   useEffect(() => {
     setData(dataFake);
   }, []);
+
+  function getDayOfWeek(dateString) {
+    let daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
+    let date = new Date(dateString);
+    let dayOfWeek = daysOfWeek[date.getDay()];
+    return dayOfWeek;
+  }
+
   for (let i = 1; i <= getDaysInMonth(year, month); i++) {
     cells.push(
-      <th className='table-cell' data-content={i} key={i}>
-        {i}
+      <th
+        className={`table-cell ${
+          getDayOfWeek(`${month}-${i}-${year}`) === 'Sun' ||
+          getDayOfWeek(`${month}-${i}-${year}`) === 'Sat'
+            ? 'holiday'
+            : ''
+        }`}
+        data-content={i}
+        key={i}
+      >
+        <div className='d-flex flex-column justify-content-center align-align-items-center'>
+          <div className='text-center'>{i}</div>
+          <div className='text-center'>
+            {getDayOfWeek(`${month}-${i}-${year}`)}
+          </div>
+        </div>
       </th>
     );
   }
   for (let i = 0; i < getDaysInMonth(year, month); i++) {
     fakeData.push(
-      <td className='table-cell' key={i}>
-        data{i}
+      <td className={`table-cell `} key={i}>
+        data{i + 1}
       </td>
     );
   }
