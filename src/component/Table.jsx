@@ -59,7 +59,7 @@ function Table() {
         item.querySelectorAll('td')[holiday].classList = 'table-body--holiday';
       });
     });
-  }, [month]);
+  }, [month, year]);
   const dataFake = [
     {
       id: 1,
