@@ -23,6 +23,7 @@ function Table() {
     const table2Rows = document.querySelectorAll('.table-right tbody tr');
     table1Rows.forEach((row, index) => {
       const height = row.offsetHeight;
+      console.log(height);
       table2Rows[index].style.height = height + 'px';
     });
   }, 0);
@@ -273,23 +274,6 @@ function Table() {
     });
   };
 
-  const exampleModal = document.getElementById('exampleModal');
-  useEffect(() => {
-    // exampleModal.addEventListener('show.bs.modal', (event) => {
-    //   // Button that triggered the modal
-    //   const button = event.relatedTarget;
-    //   // Extract info from data-bs-* attributes
-    //   const recipient = button.getAttribute('data-bs-whatever');
-    //   // If necessary, you could initiate an AJAX request here
-    //   // and then do the updating in a callback.
-    //   //
-    //   // Update the modal's content.
-    //   const modalTitle = exampleModal.querySelector('.modal-title');
-    //   const modalBodyInput = exampleModal.querySelector('.modal-body input');
-    //   modalTitle.textContent = `New message to ${recipient}`;
-    //   modalBodyInput.value = recipient;
-    // });
-  }, []);
   return (
     <div className='container'>
       <div className='header d-flex'>

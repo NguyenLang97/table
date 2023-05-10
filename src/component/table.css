@@ -65,7 +65,7 @@ table tr th {
   display: block;
   top: -1.5px;
   z-index: 2;
-  height: 58px;
+  height: 59px;
 }
 
 .table-left .table-body {
@@ -100,16 +100,12 @@ table tr th {
 
 .table-cell {
   line-height: 16px;
-  height: 40px;
+  height: 41px;
 }
 
 th.table-cell {
   height: 58px;
   line-height: 20px;
-}
-
-.table-cell--title {
-  /* min-width: 300px; */
 }
 
 .table-cell--status,
