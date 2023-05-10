@@ -149,3 +149,7 @@ th.table-cell {
   color: rgb(249, 73, 73);
   background-color: rgb(249, 73, 73, 0.08) !important;
 }
+
+.button-add-task {
+  margin-left: 16px;
+}

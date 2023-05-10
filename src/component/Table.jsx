@@ -273,6 +273,23 @@ function Table() {
     });
   };
 
+  const exampleModal = document.getElementById('exampleModal');
+  useEffect(() => {
+    // exampleModal.addEventListener('show.bs.modal', (event) => {
+    //   // Button that triggered the modal
+    //   const button = event.relatedTarget;
+    //   // Extract info from data-bs-* attributes
+    //   const recipient = button.getAttribute('data-bs-whatever');
+    //   // If necessary, you could initiate an AJAX request here
+    //   // and then do the updating in a callback.
+    //   //
+    //   // Update the modal's content.
+    //   const modalTitle = exampleModal.querySelector('.modal-title');
+    //   const modalBodyInput = exampleModal.querySelector('.modal-body input');
+    //   modalTitle.textContent = `New message to ${recipient}`;
+    //   modalBodyInput.value = recipient;
+    // });
+  }, []);
   return (
     <div className='container'>
       <div className='header d-flex'>
@@ -318,6 +335,224 @@ function Table() {
                 );
               })}
             </select>
+          </div>
+          <button
+            type='button'
+            class='button-add-task btn btn-primary'
+            data-bs-toggle='modal'
+            data-bs-target='#staticBackdrop'
+          >
+            ADD NEW TASK
+          </button>
+
+          <div
+            class='modal fade'
+            id='staticBackdrop'
+            data-bs-backdrop='static'
+            data-bs-keyboard='false'
+            tabindex='-1'
+            aria-labelledby='staticBackdropLabel'
+            aria-hidden='true'
+          >
+            <div class='modal-dialog'>
+              <div class='modal-content'>
+                <div class='modal-header'>
+                  <h1 class='modal-title fs-5' id='staticBackdropLabel'>
+                    NEW TASK
+                  </h1>
+                  <button
+                    type='button'
+                    class='btn-close'
+                    data-bs-dismiss='modal'
+                    aria-label='Close'
+                  ></button>
+                </div>
+                <div class='modal-body'>
+                  <form className='row'>
+                    <div class='col-6 mb-3'>
+                      <label for='recipient-name' class='col-form-label'>
+                        Task ID:
+                      </label>
+                      <input
+                        type='text'
+                        class='form-control'
+                        id='recipient-name'
+                        placeholder='1096'
+                      />
+                    </div>
+                    <div class='col-6 mb-3'>
+                      <label for='message-text' class='col-form-label'>
+                        Page:
+                      </label>
+                      <input
+                        type='text'
+                        class='form-control'
+                        id='recipient-name'
+                        placeholder='10'
+                      />
+                    </div>
+                    <div class='col-6 mb-3'>
+                      <label for='message-text' class='col-form-label'>
+                        Ticket ID:
+                      </label>
+                      <input
+                        type='text'
+                        class='form-control'
+                        id='recipient-name'
+                        placeholder='100'
+                      />
+                    </div>
+                    <div class='col-6 mb-3'>
+                      <label for='message-text' class='col-form-label'>
+                        Screen:
+                      </label>
+                      <textarea
+                        class='form-control'
+                        id='message-text'
+                      ></textarea>
+                    </div>
+                    <div class='col-6 mb-3'>
+                      <label for='message-text' class='col-form-label'>
+                        Link ticket:
+                      </label>
+                      <textarea
+                        class='form-control'
+                        id='message-text'
+                      ></textarea>
+                    </div>
+                    <div class='col-6 mb-3'>
+                      <label for='message-text' class='col-form-label'>
+                        Pull Request:
+                      </label>
+                      <textarea
+                        class='form-control'
+                        id='message-text'
+                      ></textarea>
+                    </div>
+                    <div class='col-6 mb-3'>
+                      <label for='message-text' class='col-form-label'>
+                        Total Time (h):
+                      </label>
+                      <input
+                        type='text'
+                        class='form-control disabled'
+                        id='recipient-name'
+                        placeholder='2'
+                      />
+                    </div>
+                    <div class='col-6 mb-3'>
+                      <label for='message-text' class='col-form-label'>
+                        Create:
+                      </label>
+                      <input
+                        type='text'
+                        class='form-control'
+                        disabled='true'
+                        id='recipient-name'
+                        placeholder={new Date()}
+                        readonly
+                      />
+                    </div>
+                    <div class='col-6 mb-3'>
+                      <label for='message-text' class='col-form-label'>
+                        Function:
+                      </label>
+                      <select
+                        className='new-task--status form-select'
+                        aria-label='Default select example'
+                        // onChange={(e) =>
+                        //   handleChangeTable(
+                        //     'Function',
+                        //     item.id,
+                        //     itemContent.id,
+                        //     e
+                        //   )
+                        // }
+                        // value={itemContent.Function}
+                      >
+                        {tableCellFunction.map((Function) => {
+                          return (
+                            <option
+                              value={Function.Function}
+                              key={Function.Function}
+                            >
+                              {Function.Function}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                    <div class='col-6 mb-3'>
+                      <label for='message-text' class='col-form-label'>
+                        Priority:
+                      </label>
+                      <select
+                        className='new-task--status form-select'
+                        aria-label='Default select example'
+                        // onChange={(e) =>
+                        //   handleChangeTable(
+                        //     'Priority',
+                        //     item.id,
+                        //     itemContent.id,
+                        //     e
+                        //   )
+                        // }
+                        // value={itemContent.Priority}
+                      >
+                        {tableCellPriority.map((priority) => {
+                          return (
+                            <option
+                              value={priority.Priority}
+                              key={priority.Priority}
+                            >
+                              {priority.Priority}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                    <div class='col-6 mb-3'>
+                      <label for='message-text' class='col-form-label'>
+                        Status:
+                      </label>
+                      <select
+                        className='new-task--status form-select'
+                        aria-label='Default select example'
+                        // onChange={(e) =>
+                        //   handleChangeTable(
+                        //     'Status',
+                        //     item.id,
+                        //     itemContent.id,
+                        //     e
+                        //   )
+                        // }
+                        // value={itemContent.Status}
+                      >
+                        {tableCellStatus.map((status) => {
+                          return (
+                            <option value={status.status} key={status.status}>
+                              {status.status}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  </form>
+                </div>
+                <div class='modal-footer'>
+                  <button
+                    type='button'
+                    class='btn btn-secondary'
+                    data-bs-dismiss='modal'
+                  >
+                    Close
+                  </button>
+                  <button type='button' class='btn btn-primary'>
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -375,7 +610,7 @@ function Table() {
                             </td>
                             <td className='table-cell'>
                               <select
-                                className='table-cell--status form-select'
+                                className='new-task--status form-select'
                                 aria-label='Default select example'
                                 onChange={(e) =>
                                   handleChangeTable(
