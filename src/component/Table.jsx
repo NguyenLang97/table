@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './table.css';
+import './table.scss';
+import AddNewTask from './addNewTask';
 
 function Table() {
   const table1Ref = useRef(null);
@@ -17,16 +18,6 @@ function Table() {
   //     });
   //   }
   // }, []);
-
-  setTimeout(() => {
-    const table1Rows = document.querySelectorAll('.table-left tbody tr');
-    const table2Rows = document.querySelectorAll('.table-right tbody tr');
-    table1Rows.forEach((row, index) => {
-      const height = row.offsetHeight;
-      console.log(height);
-      table2Rows[index].style.height = height + 'px';
-    });
-  }, 0);
 
   const date = new Date();
 
@@ -65,6 +56,7 @@ function Table() {
     {
       id: 1,
       TaskID: 'Outward Return',
+      totalTime: '12h',
       content: [
         {
           id: '1a',
@@ -72,7 +64,10 @@ function Table() {
           Function: 'API',
           Issue: '',
           Status: 'Code base done',
-          Priority: 'Hard'
+          Priority: 'Hard',
+          totalTime: '2h',
+          realTime: '4h',
+          time: [{ '5-11-2023': '1h' }, { '5-12-2023': '2h' }]
         },
         {
           id: '2a',
@@ -80,22 +75,27 @@ function Table() {
           Function: 'API',
           Issue: '',
           Status: 'Code base done',
-          Priority: 'Medium'
+          Priority: 'Medium',
+          totalTime: '6h',
+          realTime: '4h'
         },
         {
           id: '3a',
           Title:
-            'Phân tích, tài liệu mô tả luồng xử lý của từng chức năng bằng diagramPhân tích, tài liệu mô tả luồng xử lý của từng chức năng bằng diagram',
+            'Phân tích, tài liệu mô tả luồng xử lý của từng chức năng bằng diagram Phân tích, tài liệu mô tả luồng xử lý của từng chức năng bằng diagram',
           Function: 'API',
           Issue: '',
           Status: 'Code base done',
-          Priority: 'Medium'
+          Priority: 'Medium',
+          totalTime: '4h',
+          realTime: '3h'
         }
       ]
     },
     {
       id: 2,
       TaskID: 'Bug',
+      totalTime: '12h',
       content: [
         {
           id: '1bb',
@@ -103,7 +103,9 @@ function Table() {
           Function: 'Fix bug tester',
           Issue: '',
           Status: 'Dev finish',
-          Priority: 'Hard'
+          Priority: 'Hard',
+          totalTime: '2h',
+          realTime: '4h'
         },
         {
           id: '2bb',
@@ -111,7 +113,9 @@ function Table() {
           Function: 'Fix bug tester',
           Issue: '',
           Status: 'Dev finish',
-          Priority: 'Hard'
+          Priority: 'Hard',
+          totalTime: '6h',
+          realTime: '4h'
         },
         {
           id: '3bb',
@@ -119,7 +123,9 @@ function Table() {
           Function: 'Bug UI',
           Issue: '',
           Status: 'Dev finish',
-          Priority: 'Hard'
+          Priority: 'Hard',
+          totalTime: '4h',
+          realTime: '3h'
         }
       ]
     }
@@ -224,6 +230,7 @@ function Table() {
   };
 
   const titleRef = useRef(null);
+  const inputTitleRef = useRef(null);
 
   const tableCellStatus = [
     {
@@ -252,6 +259,10 @@ function Table() {
   ];
 
   const handleChangeTable = (key, taskId, contentId, e) => {
+    if (e.type === 'dblclick') {
+      setSelectedColumn(contentId);
+      return;
+    }
     setData((prevState) => {
       const taskIndex = prevState.findIndex((task) => task.id === taskId);
       if (taskIndex !== -1) {
@@ -271,6 +282,40 @@ function Table() {
         }
       }
       return prevState;
+    });
+  };
+  const [selectedTask, setSelectedTask] = useState('');
+  const [selectedColumn, setSelectedColumn] = useState('');
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      setSelectedColumn('');
+      setSelectedTask('');
+    }
+  };
+
+  const handleBlur = () => {
+    setSelectedColumn('');
+    setSelectedTask('');
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      const table1Rows = document.querySelectorAll('.table-left tbody tr');
+      const table2Rows = document.querySelectorAll('.table-right tbody tr');
+      table1Rows.forEach((row, index) => {
+        const height = row.offsetHeight;
+        table2Rows[index].style.height = height + 'px';
+      });
+    }, 0);
+  }, [selectedColumn]);
+
+  const handleChangeTask = (key, taskId, e) => {
+    setData((prevState) => {
+      const taskIndex = prevState.findIndex((task) => task.id === taskId);
+      const updatedTask = { ...prevState[taskIndex], [key]: e.target.value };
+      console.log(updatedTask);
+      const newData = [...prevState];
+      newData[taskIndex] = updatedTask;
+      return newData;
     });
   };
 
@@ -322,244 +367,13 @@ function Table() {
           </div>
           <button
             type='button'
-            class='button-add-task btn btn-primary'
+            className='button-add-task btn btn-primary'
             data-bs-toggle='modal'
             data-bs-target='#staticBackdrop'
           >
             ADD NEW TASK
           </button>
-
-          <div
-            class='modal fade'
-            id='staticBackdrop'
-            data-bs-backdrop='static'
-            data-bs-keyboard='false'
-            tabindex='-1'
-            aria-labelledby='staticBackdropLabel'
-            aria-hidden='true'
-          >
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h1 class='modal-title fs-5' id='staticBackdropLabel'>
-                    NEW TASK
-                  </h1>
-                  <button
-                    type='button'
-                    class='btn-close'
-                    data-bs-dismiss='modal'
-                    aria-label='Close'
-                  ></button>
-                </div>
-                <div class='modal-body'>
-                  <form className='row'>
-                    <div class='col-6 mb-3'>
-                      <label for='recipient-name' class='col-form-label'>
-                        Task ID:
-                      </label>
-                      <input
-                        type='text'
-                        class='form-control'
-                        id='recipient-name'
-                        placeholder='1096'
-                      />
-                    </div>
-                    <div class='col-6 mb-3'>
-                      <label for='message-text' class='col-form-label'>
-                        Page:
-                      </label>
-                      <input
-                        type='text'
-                        class='form-control'
-                        id='recipient-name'
-                        placeholder='10'
-                      />
-                    </div>
-                    <div class='col-6 mb-3'>
-                      <label for='message-text' class='col-form-label'>
-                        Ticket ID:
-                      </label>
-                      <input
-                        type='text'
-                        class='form-control'
-                        id='recipient-name'
-                        placeholder='100'
-                      />
-                    </div>
-                    <div class='col-6 mb-3'>
-                      <label for='message-text' class='col-form-label'>
-                        Screen:
-                      </label>
-                      <textarea
-                        class='form-control'
-                        id='message-text'
-                      ></textarea>
-                    </div>
-                    <div class='col-6 mb-3'>
-                      <label for='message-text' class='col-form-label'>
-                        Link ticket:
-                      </label>
-                      <textarea
-                        class='form-control'
-                        id='message-text'
-                      ></textarea>
-                    </div>
-                    <div class='col-6 mb-3'>
-                      <label for='message-text' class='col-form-label'>
-                        Pull Request:
-                      </label>
-                      <textarea
-                        class='form-control'
-                        id='message-text'
-                      ></textarea>
-                    </div>
-                    <div class='col-6 mb-3'>
-                      <label for='message-text' class='col-form-label'>
-                        Total Time (h):
-                      </label>
-                      <input
-                        type='text'
-                        class='form-control disabled'
-                        id='recipient-name'
-                        placeholder='2'
-                      />
-                    </div>
-                    <div class='col-6 mb-3'>
-                      <label for='message-text' class='col-form-label'>
-                        Create:
-                      </label>
-                      <input
-                        type='text'
-                        class='form-control'
-                        disabled='true'
-                        id='recipient-name'
-                        placeholder={new Date()}
-                        readonly
-                      />
-                    </div>
-                    <div class='col-6 mb-3'>
-                      <label for='message-text' class='col-form-label'>
-                        Function:
-                      </label>
-                      <select
-                        className='new-task--status form-select'
-                        aria-label='Default select example'
-                        // onChange={(e) =>
-                        //   handleChangeTable(
-                        //     'Function',
-                        //     item.id,
-                        //     itemContent.id,
-                        //     e
-                        //   )
-                        // }
-                        // value={itemContent.Function}
-                      >
-                        {tableCellFunction.map((Function) => {
-                          return (
-                            <option
-                              value={Function.Function}
-                              key={Function.Function}
-                            >
-                              {Function.Function}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-                    <div class='col-6 mb-3'>
-                      <label for='message-text' class='col-form-label'>
-                        Priority:
-                      </label>
-                      <select
-                        className='new-task--status form-select'
-                        aria-label='Default select example'
-                        // onChange={(e) =>
-                        //   handleChangeTable(
-                        //     'Priority',
-                        //     item.id,
-                        //     itemContent.id,
-                        //     e
-                        //   )
-                        // }
-                        // value={itemContent.Priority}
-                      >
-                        {tableCellPriority.map((priority) => {
-                          return (
-                            <option
-                              value={priority.Priority}
-                              key={priority.Priority}
-                            >
-                              {priority.Priority}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-                    <div class='col-6 mb-3'>
-                      <label for='message-text' class='col-form-label'>
-                        Status:
-                      </label>
-                      <select
-                        className='new-task--status form-select'
-                        aria-label='Default select example'
-                        // onChange={(e) =>
-                        //   handleChangeTable(
-                        //     'Status',
-                        //     item.id,
-                        //     itemContent.id,
-                        //     e
-                        //   )
-                        // }
-                        // value={itemContent.Status}
-                      >
-                        {tableCellStatus.map((status) => {
-                          return (
-                            <option value={status.status} key={status.status}>
-                              {status.status}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-                    <div class='col-6 mb-3'>
-                      <label for='message-text' class='col-form-label'>
-                        Assign:
-                      </label>
-                      <select
-                        className='new-task--status form-select'
-                        aria-label='Default select example'
-                        // onChange={(e) =>
-                        //   handleChangeTable(
-                        //     'Status',
-                        //     item.id,
-                        //     itemContent.id,
-                        //     e
-                        //   )
-                        // }
-                        // value={itemContent.Status}
-                      >
-                        <option value='1'>NamPink</option>
-                        <option value='2'>Tungdv</option>
-                        <option value='3'>Lang</option>
-                      </select>
-                    </div>
-                  </form>
-                </div>
-                <div class='modal-footer'>
-                  <button
-                    type='button'
-                    class='btn btn-secondary'
-                    data-bs-dismiss='modal'
-                  >
-                    Close
-                  </button>
-                  <button type='button' class='btn btn-primary'>
-                    Add
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <AddNewTask />
         </div>
       </div>
       <div
@@ -584,6 +398,7 @@ function Table() {
                 <th className='table-cell'>Issue</th>
                 <th className='table-cell'>Priority</th>
                 <th className='table-cell'>Status</th>
+                <th className='table-cell'>Total time</th>
               </tr>
             </thead>
             <tbody className='table-body'>
@@ -595,14 +410,38 @@ function Table() {
                         <td
                           id='table-cell--task'
                           className='table-cell table-cell--task'
+                          onDoubleClick={(e) => {
+                            setSelectedTask(item.id);
+                          }}
                         >
-                          {item.TaskID}
+                          {selectedTask === item.id ? (
+                            <textarea
+                              ref={(ref) => ref && ref.focus()}
+                              type='text'
+                              className='form-control'
+                              value={item.TaskID}
+                              onChange={(e) =>
+                                handleChangeTask('TaskID', item.id, e)
+                              }
+                              onKeyPress={handleKeyPress}
+                              onBlur={handleBlur}
+                              onFocus={(e) =>
+                                e.currentTarget.setSelectionRange(
+                                  e.currentTarget.value.length,
+                                  e.currentTarget.value.length
+                                )
+                              }
+                            />
+                          ) : (
+                            item.TaskID
+                          )}
                         </td>
                         <td className='table-cell'></td>
                         <td className='table-cell'></td>
                         <td className='table-cell'></td>
                         <td className='table-cell'></td>
                         <td className='table-cell'></td>
+                        <td className='table-cell'>{item.totalTime}</td>
                       </tr>
                       {item.content.map((itemContent) => {
                         return (
@@ -610,9 +449,45 @@ function Table() {
                             <td className='table-cell'></td>
                             <td
                               ref={titleRef}
-                              className='table-cell table-cell--title'
+                              className={`table-cell table-cell--title ${
+                                selectedColumn === 'Title' ? 'selected' : ''
+                              }`}
+                              onDoubleClick={(e) => {
+                                handleChangeTable(
+                                  'Title',
+                                  item.id,
+                                  itemContent.id,
+                                  e
+                                );
+                              }}
                             >
-                              {itemContent.Title}
+                              {selectedColumn === itemContent.id ? (
+                                <textarea
+                                  // autoFocus
+                                  ref={(ref) => ref && ref.focus()}
+                                  type='text'
+                                  className='form-control'
+                                  value={itemContent.Title}
+                                  onChange={(e) =>
+                                    handleChangeTable(
+                                      'Title',
+                                      item.id,
+                                      itemContent.id,
+                                      e
+                                    )
+                                  }
+                                  onKeyPress={handleKeyPress}
+                                  onBlur={handleBlur}
+                                  onFocus={(e) =>
+                                    e.currentTarget.setSelectionRange(
+                                      e.currentTarget.value.length,
+                                      e.currentTarget.value.length
+                                    )
+                                  }
+                                />
+                              ) : (
+                                itemContent.Title
+                              )}
                             </td>
                             <td className='table-cell'>
                               <select
@@ -692,6 +567,9 @@ function Table() {
                                   );
                                 })}
                               </select>
+                            </td>
+                            <td className='table-cell'>
+                              {itemContent.totalTime}
                             </td>
                           </tr>
                         );
